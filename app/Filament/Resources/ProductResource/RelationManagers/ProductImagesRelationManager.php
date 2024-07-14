@@ -22,12 +22,14 @@ class ProductImagesRelationManager extends RelationManager
             ->schema([
                 Forms\Components\FileUpload::make('image')
                     ->image()
+                    ->translateLabel('Image')
                     ->required()
                     ->directory('product-images')
                     ->openable()
                     ->multiple()->reorderable()->appendFiles(),
                 Forms\Components\TextInput::make('display_order')
                     ->required()
+                    ->translateLabel('Display_order')
                     ->numeric()
                     ->default(0),
                 // FileUpload::make('image')

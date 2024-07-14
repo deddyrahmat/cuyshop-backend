@@ -11,6 +11,7 @@ class CreateProduct extends CreateRecord
 {
     protected static string $resource = ProductResource::class;
 
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['created_by'] = Auth::id(); // Atau 'updated_by'

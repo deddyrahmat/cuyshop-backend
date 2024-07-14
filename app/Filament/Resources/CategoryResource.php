@@ -20,13 +20,20 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
+    protected static ?string $navigationGroup = 'Master';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Category');
+    }
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))->live(debounce: 250),
+                Forms\Components\TextInput::make('name')->translateLabel('Name')->required()->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))->live(debounce: 250),
                 Forms\Components\TextInput::make('slug'),
             ]);
     }
@@ -46,6 +53,7 @@ class CategoryResource extends Resource
                     }
                 ),
                 Tables\Columns\TextColumn::make('name')
+                    ->translateLabel('Name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
@@ -77,5 +85,14 @@ class CategoryResource extends Resource
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Category');
+    }
+    public static function getPluralModelLabel(): string
+    {
+        return __('Categories');
     }
 }
