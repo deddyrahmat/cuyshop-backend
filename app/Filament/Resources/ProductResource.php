@@ -28,6 +28,9 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')->required()->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))->live(debounce: 250),
                 Forms\Components\TextInput::make('slug')->disabled(),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->required(),
                 Forms\Components\TextInput::make('quantity')
                     ->required()
                     ->numeric(),
