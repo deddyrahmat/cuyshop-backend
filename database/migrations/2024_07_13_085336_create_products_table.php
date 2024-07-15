@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->text('slug');
+            $table->string('title');
+            $table->string('slug');
             $table->integer('quantity');
             $table->text('description')->nullable();
             $table->boolean('published')->default(0);
-            $table->boolean('inStock')->default(0);
+            $table->boolean('available')->default(0);
             $table->decimal('price', 10, 2);
 
             // relation

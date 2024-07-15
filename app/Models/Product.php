@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Str;
 
 class Product extends Model
@@ -17,6 +18,7 @@ class Product extends Model
         'slug',
         'description',
         'quantity',
+        'category_id',
         'published',
         'inStock',
         'price',
@@ -36,6 +38,11 @@ class Product extends Model
         $this->attributes['slug'] = Str::slug($value);
     }
 
+    function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function productImages(): HasMany
     {
         return $this->hasMany(ProductImages::class);
@@ -44,5 +51,10 @@ class Product extends Model
     function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

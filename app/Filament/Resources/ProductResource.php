@@ -7,6 +7,7 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Filament\Resources\ProductResource\RelationManagers\ProductImagesRelationManager;
 use App\Models\Product;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
@@ -15,7 +16,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Contracts\HasTable;
+use Illuminate\Support\Facades\Auth;
 use stdClass;
 use Str;
 
@@ -35,30 +38,36 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->translateLabel('Title')->required()->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))->live(debounce: 250),
+                Section::make('Status Product')->schema([
+                    Forms\Components\Toggle::make('published')
+                        ->translateLabel('Published')
+                        ->required()
+                ])->visible(fn ($livewire) => $livewire instanceof Pages\EditProduct),
+
+                Forms\Components\TextInput::make('title')
+                    ->translateLabel('Title')
+                    ->required()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->live(debounce: 250),
                 Forms\Components\TextInput::make('slug')->disabled(),
                 Forms\Components\Select::make('category_id')
                     ->translateLabel('Category')
                     ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Forms\Components\TextInput::make('quantity')
                     ->required()
                     ->translateLabel('Quantity')
                     ->numeric(),
-                Forms\Components\Textarea::make('description')
+                RichEditor::make('description')
                     ->translateLabel('Description')
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('published')
-                    ->translateLabel('Published')
-                    ->required(),
-                Forms\Components\Toggle::make('inStock')
-                    ->translateLabel('InStock')
-                    ->required(),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->translateLabel('Price')
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('Rp.'),
             ]);
     }
 
@@ -87,14 +96,15 @@ class ProductResource extends Resource
                 Tables\Columns\IconColumn::make('published')
                     ->translateLabel('Published')
                     ->boolean(),
-                Tables\Columns\IconColumn::make('inStock')
-                    ->translateLabel('InStock')
+                Tables\Columns\IconColumn::make('available')
+                    ->translateLabel('Available')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('category.name'),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('IDR')
                     ->translateLabel('Price')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('updated_by')
+                Tables\Columns\TextColumn::make('updatedBy.name')
                     ->translateLabel('Updated_by')
                     ->numeric()
                     ->sortable(),
