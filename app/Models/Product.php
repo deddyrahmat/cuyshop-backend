@@ -20,7 +20,7 @@ class Product extends Model
         'quantity',
         'category_id',
         'published',
-        'inStock',
+        'available',
         'price',
         'created_by',
         'updated_by',
