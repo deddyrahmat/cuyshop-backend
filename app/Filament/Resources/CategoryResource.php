@@ -20,6 +20,7 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
+    // SIDEBAR
     protected static ?string $navigationGroup = 'Master';
 
     public static function getNavigationLabel(): string
