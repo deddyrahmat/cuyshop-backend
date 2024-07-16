@@ -37,7 +37,6 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === self::ROLE_EDITOR;
     }
 
-    // production
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin' && $this->isAdmin()) {
