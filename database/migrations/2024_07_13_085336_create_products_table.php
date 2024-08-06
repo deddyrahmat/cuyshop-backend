@@ -23,6 +23,8 @@ return new class extends Migration
             $table->boolean('available')->default(0);
             $table->decimal('price', 10, 2);
 
+
+
             // relation
             $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();

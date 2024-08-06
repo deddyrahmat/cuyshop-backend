@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CheckShippingCostController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/provinces', [CheckShippingCostController::class, 'province']);
     Route::get('/cities', [CheckShippingCostController::class, 'city']);
     Route::post('/check-shipping-cost', [CheckShippingCostController::class, 'checkShippingCost']);
+
+
+    // payment
+    Route::post('/get-snap-token', [PaymentController::class, 'getSnapToken']);
 });
 
 require __DIR__ . '/auth.php';
