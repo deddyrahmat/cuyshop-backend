@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CheckShippingCostController;
+use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // payment
     Route::post('/get-snap-token', [PaymentController::class, 'getSnapToken']);
+
+    Route::resource("address", AddressController::class);
 });
 
 require __DIR__ . '/auth.php';

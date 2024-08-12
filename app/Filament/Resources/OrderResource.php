@@ -52,9 +52,6 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('payment_proof')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('user_address_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_by')
                     ->numeric()
                     ->sortable(),

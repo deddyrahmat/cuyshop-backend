@@ -22,6 +22,7 @@ class Product extends Model
         'published',
         'available',
         'price',
+        'weight',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -56,5 +57,11 @@ class Product extends Model
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_items')
+            ->withPivot('quantity', 'item_price');
     }
 }

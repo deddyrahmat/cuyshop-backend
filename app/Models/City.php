@@ -10,7 +10,12 @@ class City extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'province_id',
+        'type',
+        'name',
+        'postal_code',
+    ];
 
     public function province(): BelongsTo
     {

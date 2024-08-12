@@ -68,6 +68,10 @@ class ProductResource extends Resource
                     ->translateLabel('Price')
                     ->numeric()
                     ->prefix('Rp.'),
+                Forms\Components\TextInput::make('weight')
+                    ->required()
+                    ->translateLabel('Weight')
+                    ->numeric(),
             ]);
     }
 

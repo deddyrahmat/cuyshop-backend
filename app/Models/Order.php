@@ -12,17 +12,29 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'user_address_id', 'status', 'payment_proof',
+        'total_price',
+        'payment_proof',
+        'status',
+        'user_address_id',
+        'shipping_origin_id',
+        'created_by',
+        'updated_by',
     ];
 
-    public function user()
+    public function Address(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Address::class);
     }
 
-    public function address(): BelongsTo
+
+    public function creator(): BelongsTo
     {
-        return $this->belongsTo(UserAdress::class, 'user_address_id');
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updater(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 
     public function items(): HasMany

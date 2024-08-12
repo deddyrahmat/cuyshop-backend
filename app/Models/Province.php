@@ -9,10 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Province extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+    ];
 
     public function cities(): HasMany
     {
         return $this->hasMany(City::class);
+    }
+
+
+    public function address(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
 }

@@ -28,7 +28,6 @@ class CheckShippingCostController extends Controller
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'success' => false,
                 'message' => 'Data Fetch Failed',
                 'data'    => []
             ]);
