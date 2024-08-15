@@ -12,13 +12,12 @@ class PaymentController extends Controller
         $params = [
             'transaction_details' => [
                 'order_id' => uniqid(),
-                'gross_amount' => 10000,
+                'gross_amount' => $request->total,
             ],
             'customer_details' => [
-                'first_name' => 'Yoga',
-                'last_name' => 'Meleniawan',
-                'email' => 'yogameleniawan@example.com',
-                'phone' => '08111222333',
+                'first_name' => $request->fullname,
+                'email' => $request->email,
+                // 'phone' => $request->phone,
             ],
         ];
 

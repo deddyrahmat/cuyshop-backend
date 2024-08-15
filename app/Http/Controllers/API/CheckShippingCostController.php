@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Province;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -65,10 +67,15 @@ class CheckShippingCostController extends Controller
     public function checkShippingCost(Request $request): JsonResponse
     {
         try {
+            $admin = User::where('role', 'ADMIN')->firstOrFail(); // Mendapatkan admin pertama yang ditemukan
+
+            $address = Address::where('main', true)
+                ->where('user_id', $admin->id)
+                ->firstOrFail(); // Mengambil address utama dari admin tersebut
             $response = Http::withOptions(['verify' => false,])->withHeaders([
                 'key' => env('RAJAONGKIR_API_KEY')
             ])->post('https://api.rajaongkir.com/starter/cost', [
-                'origin'        => $request->origin,
+                'origin'        => $address->city_id,
                 'destination'   => $request->destination,
                 'weight'        => $request->weight,
                 'courier'       => $request->courier
