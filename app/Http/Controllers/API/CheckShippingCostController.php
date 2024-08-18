@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CheckShippingCostController extends Controller
 {
@@ -72,6 +73,8 @@ class CheckShippingCostController extends Controller
             $address = Address::where('main', true)
                 ->where('user_id', $admin->id)
                 ->firstOrFail(); // Mengambil address utama dari admin tersebut
+
+
             $response = Http::withOptions(['verify' => false,])->withHeaders([
                 'key' => env('RAJAONGKIR_API_KEY')
             ])->post('https://api.rajaongkir.com/starter/cost', [

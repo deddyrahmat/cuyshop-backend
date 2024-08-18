@@ -13,12 +13,17 @@ class Order extends Model
 
     protected $fillable = [
         'total_price',
-        'payment_proof',
+        'order_items',
+        'snap_url',
         'status',
-        'user_address_id',
-        'shipping_origin_id',
-        'created_by',
+        'address_id',
         'updated_by',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'order_items' => 'array'
     ];
 
     public function Address(): BelongsTo
@@ -26,11 +31,6 @@ class Order extends Model
         return $this->belongsTo(Address::class);
     }
 
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
 
     public function updater(): BelongsTo
     {

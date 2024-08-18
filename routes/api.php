@@ -3,6 +3,8 @@
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CheckShippingCostController;
+use App\Http\Controllers\API\NotifPaymentController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
@@ -21,6 +23,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
+    // address user
+    Route::resource("address", AddressController::class);
 
     // Routes untuk CheckShippingCostController
     Route::get('/provinces', [CheckShippingCostController::class, 'province']);
@@ -29,9 +33,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     // payment
-    Route::post('/get-snap-token', [PaymentController::class, 'getSnapToken']);
+    // Route::post('/create-pay', [PaymentController::class, 'createPay']);
 
-    Route::resource("address", AddressController::class);
+    Route::resource("order", OrderController::class);
 });
+Route::post('/midtrans-notif', NotifPaymentController::class);
 
 require __DIR__ . '/auth.php';

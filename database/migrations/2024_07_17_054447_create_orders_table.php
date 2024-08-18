@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_price', 10, 2);
-            $table->string('payment_proof')->nullable();
-            $table->enum('status', ['pending', 'approved', 'canceled'])->default('pending');
+            $table->string('status')->default('pending');
+            $table->string('snap_url')->nullable();
+            $table->json('order_items')->nullable();
             $table->foreignIdFor(Address::class)->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->foreignIdFor(User::class, 'updated_by')->nullable()->constrained('users')->cascadeOnUpdate()->restrictOnDelete();
             $table->timestamps();
