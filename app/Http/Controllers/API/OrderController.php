@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
 
+    /**
+     * Tampilkan daftar order user.
+     */
+    public function index()
+    {
+        $order = Auth::user()->order()->with('updater')->with('address')->paginate(10);
+        // return response()->json($order);
+        return response()->json([
+            'message' => 'List Order',
+            'data' => $order
+        ]);
+    }
+
     public function store(Request $request)
     {
         try {

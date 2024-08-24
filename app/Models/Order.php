@@ -26,7 +26,7 @@ class Order extends Model
         'order_items' => 'array'
     ];
 
-    public function Address(): BelongsTo
+    public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class);
     }
@@ -35,10 +35,5 @@ class Order extends Model
     public function updater(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
-    }
-
-    public function items(): HasMany
-    {
-        return $this->hasMany(OrderItems::class);
     }
 }
