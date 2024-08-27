@@ -20,7 +20,6 @@ class Product extends Model
         'quantity',
         'category_id',
         'published',
-        'available',
         'price',
         'weight',
         'created_by',

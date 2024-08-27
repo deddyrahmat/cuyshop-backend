@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('quantity');
             $table->text('description')->nullable();
             $table->boolean('published')->default(0);
-            $table->boolean('available')->default(0);
             $table->decimal('price', 10, 2);
             $table->integer('weight');
 
