@@ -42,12 +42,12 @@ class ProductResource extends Resource
                     Forms\Components\Toggle::make('published')
                         ->translateLabel('Published')
                         ->required()
-                ])->visible(fn ($livewire) => $livewire instanceof Pages\EditProduct),
+                ])->visible(fn($livewire) => $livewire instanceof Pages\EditProduct),
 
                 Forms\Components\TextInput::make('title')
                     ->translateLabel('Title')
                     ->required()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                     ->live(debounce: 250),
                 Forms\Components\TextInput::make('slug')->disabled(),
                 Forms\Components\Select::make('category_id')
@@ -99,9 +99,6 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\IconColumn::make('published')
                     ->translateLabel('Published')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('available')
-                    ->translateLabel('Available')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('category.name'),
                 Tables\Columns\TextColumn::make('price')

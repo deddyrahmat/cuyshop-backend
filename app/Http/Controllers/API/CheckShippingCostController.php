@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class CheckShippingCostController extends Controller
 {
@@ -69,8 +68,7 @@ class CheckShippingCostController extends Controller
     {
         try {
             $admin = User::where('role', 'ADMIN')->firstOrFail(); // Mendapatkan admin pertama yang ditemukan
-
-            $address = Address::where('main', true)
+            $address = Address::where('main', 1)
                 ->where('user_id', $admin->id)
                 ->firstOrFail(); // Mengambil address utama dari admin tersebut
 
