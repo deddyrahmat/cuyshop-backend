@@ -22,10 +22,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // setup ngrok
-        if (config('app.env') === 'local') {
+        // if (config('app.env') === 'local') {
+        //     URL::forceScheme('https');
+        // }
+
+        if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
-
 
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
