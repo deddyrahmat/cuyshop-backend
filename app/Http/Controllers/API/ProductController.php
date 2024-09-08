@@ -29,7 +29,7 @@ class ProductController extends Controller
         }
 
         // Dapatkan hasil paginasi
-        $products = $query->paginate(10); // Ubah angka 10 sesuai kebutuhan
+        $products = $query->paginate($request->totalShow); // Ubah angka 8 sesuai kebutuhan
 
         return response()->json([
             'message' => 'Get all data product',
@@ -59,7 +59,7 @@ class ProductController extends Controller
         }
 
         // Dapatkan hasil paginasi
-        $products = $query->paginate($request->totalShow); // Ubah angka 10 sesuai kebutuhan
+        $products = $query->paginate($request->totalShow);
 
         return response()->json([
             'message' => 'Get all data product',
