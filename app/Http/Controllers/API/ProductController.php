@@ -15,6 +15,7 @@ class ProductController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+
         // Ambil parameter category_slug jika ada
         $categorySlug = $request->query('category_slug');
 
