@@ -19,7 +19,7 @@ class NotifPaymentController extends Controller
 
             $data = $request->all();
 
-            Log::info('incoming-midtrans', ['data' => $data]);
+            // Log::info('incoming-midtrans', ['data' => $data]);
             $signatureKey = $data['signature_key'];
 
             $orderId = $data['order_id'];
